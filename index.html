@@ -2317,7 +2317,387 @@ section{padding:155px 0!important}section .container{position:relative}section .
 /* magnetic cursor */
 #rk-cursor{position:fixed;width:18px;height:18px;border:1px solid var(--mint);border-radius:50%;z-index:9999;pointer-events:none;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s;mix-blend-mode:difference}.rk-cursor-dot{position:fixed;width:3px;height:3px;border-radius:50%;background:var(--mint);z-index:10000;pointer-events:none;transform:translate(-50%,-50%)}
 @media(max-width:800px){#rk-systembar{padding:0 12px}.sys-right{display:none}#rk-orbit{width:75vw;height:75vw;right:-25vw;top:18vh}.rk-metric-wall{grid-template-columns:1fr}.hero{padding-top:125px!important}.hero h1{font-size:clamp(3.8rem,17vw,7rem)!important}#rk-cursor,.rk-cursor-dot{display:none}section{padding:115px 0!important}}
-</style></head>
+</style><style id="rko-recovered-css">
+/* =========================================================
+   RACHNA.OS — NEXT LEVEL INTERFACE SYSTEM
+========================================================= */
+
+:root{
+    --hud-bg:rgba(5,8,14,.42);
+    --hud-border:rgba(255,255,255,.11);
+    --hud-glow:rgba(88,224,202,.22);
+}
+
+/* Global reading/progression line */
+.scroll-progress{
+    position:fixed;
+    top:0;
+    left:0;
+    width:0;
+    height:2px;
+    z-index:1200;
+    background:linear-gradient(90deg,var(--violet),var(--teal),var(--rose));
+    box-shadow:0 0 18px rgba(88,224,202,.45);
+}
+
+/* Desktop section navigator */
+.section-rail{
+    position:fixed;
+    right:22px;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:470;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:10px;
+    padding:12px 10px;
+    border:1px solid var(--hud-border);
+    border-radius:18px;
+    background:var(--hud-bg);
+    backdrop-filter:blur(18px) saturate(130%);
+    -webkit-backdrop-filter:blur(18px) saturate(130%);
+    box-shadow:0 20px 70px rgba(0,0,0,.22);
+}
+
+.section-rail a{
+    position:relative;
+    width:34px;
+    height:20px;
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    color:#677183;
+    font:600 8px "JetBrains Mono",monospace;
+    letter-spacing:.08em;
+    transition:.3s var(--ease);
+}
+
+.section-rail a::after{
+    content:"";
+    width:6px;
+    height:6px;
+    margin-left:8px;
+    border:1px solid #667184;
+    border-radius:50%;
+    transition:.3s var(--ease);
+}
+
+.section-rail a span{
+    position:absolute;
+    right:20px;
+    opacity:0;
+    transform:translateX(6px);
+    white-space:nowrap;
+    pointer-events:none;
+    transition:.25s var(--ease);
+}
+
+.section-rail a:hover span,
+.section-rail a.active span{
+    opacity:1;
+    transform:none;
+}
+
+.section-rail a.active{
+    color:var(--teal);
+}
+
+.section-rail a.active::after{
+    background:var(--teal);
+    border-color:var(--teal);
+    box-shadow:0 0 12px var(--teal);
+}
+
+.section-rail-label{
+    writing-mode:vertical-rl;
+    transform:rotate(180deg);
+    color:#4e596b;
+    font:600 7px "JetBrains Mono",monospace;
+    letter-spacing:.2em;
+    margin-bottom:4px;
+}
+
+/* Hero HUD */
+.hero-hud{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:24px;
+}
+
+.hud-chip{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:7px 10px;
+    border:1px solid var(--hud-border);
+    border-radius:999px;
+    background:rgba(5,8,14,.38);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    color:#9aa4b5;
+    font:600 8px "JetBrains Mono",monospace;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+}
+
+.hud-chip .signal{
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:var(--teal);
+    box-shadow:0 0 10px var(--teal);
+}
+
+/* Section identity markers */
+section[id]::before{
+    content:attr(id) " / 00";
+    position:absolute;
+    top:34px;
+    right:max(24px,calc((100vw - var(--max))/2));
+    color:rgba(255,255,255,.16);
+    font:600 8px "JetBrains Mono",monospace;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+}
+
+/* Premium glass depth */
+.capability,
+.journey-step,
+.skill-card,
+.education-card,
+.project,
+.contact{
+    position:relative;
+    overflow:hidden;
+    box-shadow:
+        0 20px 70px rgba(0,0,0,.10),
+        inset 0 1px 0 rgba(255,255,255,.035);
+}
+
+.capability::after,
+.skill-card::after,
+.education-card::after,
+.project::after,
+.journey-step::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+        linear-gradient(
+            115deg,
+            rgba(255,255,255,.055),
+            transparent 22%,
+            transparent 72%,
+            rgba(88,224,202,.025)
+        );
+    opacity:.65;
+}
+
+.capability:hover,
+.skill-card:hover,
+.education-card:hover,
+.journey-step:hover,
+.project:hover{
+    border-color:rgba(88,224,202,.22);
+    box-shadow:
+        0 28px 90px rgba(0,0,0,.20),
+        0 0 0 1px rgba(88,224,202,.035) inset;
+}
+
+/* Project cards get a cursor-reactive glow */
+.project{
+    --mx:50%;
+    --my:50%;
+}
+
+.project::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+        radial-gradient(
+            300px circle at var(--mx) var(--my),
+            rgba(88,224,202,.09),
+            transparent 60%
+        );
+    opacity:0;
+    transition:opacity .35s;
+}
+
+.project:hover::before{
+    opacity:1;
+}
+
+/* Better buttons */
+.btn{
+    position:relative;
+    overflow:hidden;
+}
+
+.btn::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        110deg,
+        transparent 25%,
+        rgba(255,255,255,.20) 48%,
+        transparent 70%
+    );
+    transform:translateX(-120%);
+    transition:.7s;
+}
+
+.btn:hover::after{
+    transform:translateX(120%);
+}
+
+/* Scroll cue */
+.scroll-cue{
+    position:absolute;
+    left:0;
+    bottom:30px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#6f798a;
+    font:600 8px "JetBrains Mono",monospace;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+}
+
+.scroll-cue-line{
+    width:34px;
+    height:1px;
+    background:linear-gradient(90deg,var(--teal),transparent);
+}
+
+/* Command-style footer signal */
+.footer-signal{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:8px;
+    color:#667183;
+    font:600 8px "JetBrains Mono",monospace;
+    letter-spacing:.12em;
+}
+
+.footer-signal i{
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:var(--teal);
+    box-shadow:0 0 9px var(--teal);
+}
+
+/* Reduce visual clutter where portrait is most visible */
+.hero-copy,
+.workspace{
+    filter:drop-shadow(0 22px 45px rgba(0,0,0,.16));
+}
+
+@media(max-width:1000px){
+    .section-rail{
+        right:10px;
+    }
+}
+
+@media(max-width:750px){
+    section[id]::before{
+        display:none;
+    }
+
+    .section-rail{
+        display:none;
+    }
+
+    .scroll-cue{
+        display:none;
+    }
+
+    .hero-hud{
+        margin-bottom:18px;
+    }
+}
+
+
+
+
+/* SINGLE NAVIGATION MODEL — right-side section scroller */
+nav#navbar{display:none!important}
+.section-rail{
+    position:fixed;
+    z-index:80;
+    top:50%;
+    right:28px;
+    transform:translateY(-50%);
+    width:138px;
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    gap:4px;
+    padding:10px 0;
+}
+.section-rail::before{
+    content:"";
+    position:absolute;
+    top:0; bottom:0;
+    right:0;
+    width:1px;
+    background:linear-gradient(180deg,transparent,rgba(255,255,255,.18),transparent);
+}
+.section-rail-label{
+    padding:0 18px 12px 0;
+    text-align:right;
+    color:rgba(255,255,255,.42);
+    font:700 8px/1 "JetBrains Mono",monospace;
+    letter-spacing:.2em;
+}
+.section-rail a{
+    position:relative;
+    min-height:32px;
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:12px;
+    padding:0 18px 0 8px;
+    color:rgba(255,255,255,.42);
+    text-decoration:none;
+    font:700 8px/1 "JetBrains Mono",monospace;
+    letter-spacing:.13em;
+    transition:color .35s ease,transform .35s ease;
+}
+.section-rail a::after{
+    content:"";
+    position:absolute;
+    right:-2px;
+    width:5px;height:5px;
+    border-radius:50%;
+    background:rgba(255,255,255,.2);
+    transition:all .35s ease;
+}
+.section-rail a span{transition:transform .35s ease}
+.section-rail a:hover,
+.section-rail a.active{color:var(--text)}
+.section-rail a:hover span,
+.section-rail a.active span{transform:translateX(-5px)}
+.section-rail a.active::after{
+    background:var(--teal);
+    box-shadow:0 0 14px rgba(88,224,202,.55);
+}
+.section-rail a.active{font-size:9px}
+@media(max-width:750px){
+    .section-rail{right:12px;width:86px}
+    .section-rail a{padding-right:12px;font-size:7px;gap:7px}
+    .section-rail-label{padding-right:12px;font-size:7px}
+}
+</style>
+</head>
 
 
 <body><div id="rk-systembar"><span>RACHNA.OS / INTELLIGENCE SYSTEM</span><span class="sys-right">DATA → INTELLIGENCE → DECISION &nbsp;&nbsp; <i class="sys-live">LIVE</i></span></div><div id="rk-progress"><div class="rk-progress-fill"></div></div><div id="rk-orbit"><span class="rk-orbit-dot"></span></div><div id="rk-cursor"></div><div class="rk-cursor-dot"></div>
@@ -2382,42 +2762,6 @@ section{padding:155px 0!important}section .container{position:relative}section .
 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-dot" id="cursorDot"></div>
-
-
-<!-- ======================================================
-     NAV
-====================================================== -->
-
-<nav id="navbar">
-
-    <div class="container nav">
-
-        <a href="#" class="brand" aria-label="RKHP — personal portfolio">
-                <span class="logo">
-                    <span class="logo-mark">RKHP</span>
-                    <span class="live-dot"></span>
-                </span>
-            </a>
-
-        <div class="nav-links" id="navLinks">
-
-            <a href="#about">About</a>
-            <a href="#journey">Approach</a>
-            <a href="#experience">Experience</a>
-            <a href="#skills">Stack</a>
-            <a href="#projects">Work</a>
-            <a href="#education">Education</a>
-            <a href="#contact">Contact</a>
-
-        </div>
-
-        <button class="menu" id="menuButton">
-            Menu
-        </button>
-
-    </div>
-
-</nav>
 
 
 <!-- ======================================================
@@ -4083,6 +4427,7 @@ section{padding:155px 0!important}section .container{position:relative}section .
 
 <script>
 
+
 /* =========================================================
    LOADER
 ========================================================= */
@@ -4604,313 +4949,6 @@ if(photoBackdrop && !reduceMotion.matches){
 
 
 
-/* =========================================================
-   RACHNA.OS — NEXT LEVEL INTERFACE SYSTEM
-========================================================= */
-
-:root{
-    --hud-bg:rgba(5,8,14,.42);
-    --hud-border:rgba(255,255,255,.11);
-    --hud-glow:rgba(88,224,202,.22);
-}
-
-/* Global reading/progression line */
-.scroll-progress{
-    position:fixed;
-    top:0;
-    left:0;
-    width:0;
-    height:2px;
-    z-index:1200;
-    background:linear-gradient(90deg,var(--violet),var(--teal),var(--rose));
-    box-shadow:0 0 18px rgba(88,224,202,.45);
-}
-
-/* Desktop section navigator */
-.section-rail{
-    position:fixed;
-    right:22px;
-    top:50%;
-    transform:translateY(-50%);
-    z-index:470;
-    display:flex;
-    flex-direction:column;
-    align-items:flex-end;
-    gap:10px;
-    padding:12px 10px;
-    border:1px solid var(--hud-border);
-    border-radius:18px;
-    background:var(--hud-bg);
-    backdrop-filter:blur(18px) saturate(130%);
-    -webkit-backdrop-filter:blur(18px) saturate(130%);
-    box-shadow:0 20px 70px rgba(0,0,0,.22);
-}
-
-.section-rail a{
-    position:relative;
-    width:34px;
-    height:20px;
-    display:flex;
-    align-items:center;
-    justify-content:flex-end;
-    color:#677183;
-    font:600 8px "JetBrains Mono",monospace;
-    letter-spacing:.08em;
-    transition:.3s var(--ease);
-}
-
-.section-rail a::after{
-    content:"";
-    width:6px;
-    height:6px;
-    margin-left:8px;
-    border:1px solid #667184;
-    border-radius:50%;
-    transition:.3s var(--ease);
-}
-
-.section-rail a span{
-    position:absolute;
-    right:20px;
-    opacity:0;
-    transform:translateX(6px);
-    white-space:nowrap;
-    pointer-events:none;
-    transition:.25s var(--ease);
-}
-
-.section-rail a:hover span,
-.section-rail a.active span{
-    opacity:1;
-    transform:none;
-}
-
-.section-rail a.active{
-    color:var(--teal);
-}
-
-.section-rail a.active::after{
-    background:var(--teal);
-    border-color:var(--teal);
-    box-shadow:0 0 12px var(--teal);
-}
-
-.section-rail-label{
-    writing-mode:vertical-rl;
-    transform:rotate(180deg);
-    color:#4e596b;
-    font:600 7px "JetBrains Mono",monospace;
-    letter-spacing:.2em;
-    margin-bottom:4px;
-}
-
-/* Hero HUD */
-.hero-hud{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-bottom:24px;
-}
-
-.hud-chip{
-    display:inline-flex;
-    align-items:center;
-    gap:7px;
-    padding:7px 10px;
-    border:1px solid var(--hud-border);
-    border-radius:999px;
-    background:rgba(5,8,14,.38);
-    backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
-    color:#9aa4b5;
-    font:600 8px "JetBrains Mono",monospace;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-}
-
-.hud-chip .signal{
-    width:5px;
-    height:5px;
-    border-radius:50%;
-    background:var(--teal);
-    box-shadow:0 0 10px var(--teal);
-}
-
-/* Section identity markers */
-section[id]::before{
-    content:attr(id) " / 00";
-    position:absolute;
-    top:34px;
-    right:max(24px,calc((100vw - var(--max))/2));
-    color:rgba(255,255,255,.16);
-    font:600 8px "JetBrains Mono",monospace;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-}
-
-/* Premium glass depth */
-.capability,
-.journey-step,
-.skill-card,
-.education-card,
-.project,
-.contact{
-    position:relative;
-    overflow:hidden;
-    box-shadow:
-        0 20px 70px rgba(0,0,0,.10),
-        inset 0 1px 0 rgba(255,255,255,.035);
-}
-
-.capability::after,
-.skill-card::after,
-.education-card::after,
-.project::after,
-.journey-step::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-    background:
-        linear-gradient(
-            115deg,
-            rgba(255,255,255,.055),
-            transparent 22%,
-            transparent 72%,
-            rgba(88,224,202,.025)
-        );
-    opacity:.65;
-}
-
-.capability:hover,
-.skill-card:hover,
-.education-card:hover,
-.journey-step:hover,
-.project:hover{
-    border-color:rgba(88,224,202,.22);
-    box-shadow:
-        0 28px 90px rgba(0,0,0,.20),
-        0 0 0 1px rgba(88,224,202,.035) inset;
-}
-
-/* Project cards get a cursor-reactive glow */
-.project{
-    --mx:50%;
-    --my:50%;
-}
-
-.project::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-    background:
-        radial-gradient(
-            300px circle at var(--mx) var(--my),
-            rgba(88,224,202,.09),
-            transparent 60%
-        );
-    opacity:0;
-    transition:opacity .35s;
-}
-
-.project:hover::before{
-    opacity:1;
-}
-
-/* Better buttons */
-.btn{
-    position:relative;
-    overflow:hidden;
-}
-
-.btn::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(
-        110deg,
-        transparent 25%,
-        rgba(255,255,255,.20) 48%,
-        transparent 70%
-    );
-    transform:translateX(-120%);
-    transition:.7s;
-}
-
-.btn:hover::after{
-    transform:translateX(120%);
-}
-
-/* Scroll cue */
-.scroll-cue{
-    position:absolute;
-    left:0;
-    bottom:30px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    color:#6f798a;
-    font:600 8px "JetBrains Mono",monospace;
-    letter-spacing:.16em;
-    text-transform:uppercase;
-}
-
-.scroll-cue-line{
-    width:34px;
-    height:1px;
-    background:linear-gradient(90deg,var(--teal),transparent);
-}
-
-/* Command-style footer signal */
-.footer-signal{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    margin-top:8px;
-    color:#667183;
-    font:600 8px "JetBrains Mono",monospace;
-    letter-spacing:.12em;
-}
-
-.footer-signal i{
-    width:5px;
-    height:5px;
-    border-radius:50%;
-    background:var(--teal);
-    box-shadow:0 0 9px var(--teal);
-}
-
-/* Reduce visual clutter where portrait is most visible */
-.hero-copy,
-.workspace{
-    filter:drop-shadow(0 22px 45px rgba(0,0,0,.16));
-}
-
-@media(max-width:1000px){
-    .section-rail{
-        right:10px;
-    }
-}
-
-@media(max-width:750px){
-    section[id]::before{
-        display:none;
-    }
-
-    .section-rail{
-        display:none;
-    }
-
-    .scroll-cue{
-        display:none;
-    }
-
-    .hero-hud{
-        margin-bottom:18px;
-    }
-}
-
 
 /* =========================================================
    REDUCED MOTION
@@ -4931,7 +4969,23 @@ if(
 
 }
 
+
 </script>
 
-<script id="rk-innovation-js">(()=>{const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);const cur=$('#rk-cursor'),dot=$('.rk-cursor-dot');addEventListener('pointermove',e=>{if(cur){cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px'}if(dot){dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px'}document.documentElement.style.setProperty('--mx',e.clientX+'px');document.documentElement.style.setProperty('--my',e.clientY+'px')});$$('a,button,.project,.skill-card,.capability,.journey-step').forEach(e=>{e.addEventListener('mouseenter',()=>{if(cur){cur.style.width='42px';cur.style.height='42px';cur.style.borderColor='var(--violet)'}});e.addEventListener('mouseleave',()=>{if(cur){cur.style.width='18px';cur.style.height='18px';cur.style.borderColor='var(--mint)'}})});const fill=$('.rk-progress-fill');addEventListener('scroll',()=>{let h=document.documentElement.scrollHeight-innerHeight;fill.style.height=(h?scrollY/h*100:0)+'%';const o=$('#rk-orbit');if(o)o.style.transform='translateY('+scrollY*.045+'px) rotate('+scrollY*.015+'deg)'},{passive:true});$$('.project,.skill-card,.capability,.journey-step').forEach(el=>{el.addEventListener('pointermove',e=>{let r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform='perspective(900px) rotateX('+(-y*3)+'deg) rotateY('+(x*4)+'deg) translateY(-3px)'}) ;el.addEventListener('pointerleave',()=>el.style.transform='')});})();</script></body>
+<script id="rk-innovation-js">(()=>{const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);const cur=$('#rk-cursor'),dot=$('.rk-cursor-dot');addEventListener('pointermove',e=>{if(cur){cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px'}if(dot){dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px'}document.documentElement.style.setProperty('--mx',e.clientX+'px');document.documentElement.style.setProperty('--my',e.clientY+'px')});$$('a,button,.project,.skill-card,.capability,.journey-step').forEach(e=>{e.addEventListener('mouseenter',()=>{if(cur){cur.style.width='42px';cur.style.height='42px';cur.style.borderColor='var(--violet)'}});e.addEventListener('mouseleave',()=>{if(cur){cur.style.width='18px';cur.style.height='18px';cur.style.borderColor='var(--mint)'}})});const fill=$('.rk-progress-fill');const updateProgress=()=>{if(fill){let h=document.documentElement.scrollHeight-innerHeight;fill.style.height=(h?scrollY/h*100:0)+'%'}const o=$('#rk-orbit');if(o)o.style.transform='translateY('+scrollY*.045+'px) rotate('+scrollY*.015+'deg)'};addEventListener('scroll',updateProgress,{passive:true});updateProgress();$$('.project,.skill-card,.capability,.journey-step').forEach(el=>{el.addEventListener('pointermove',e=>{let r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform='perspective(900px) rotateX('+(-y*3)+'deg) rotateY('+(x*4)+'deg) translateY(-3px)'}) ;el.addEventListener('pointerleave',()=>el.style.transform='')});})();</script>
+<script>
+(function(){
+  const links=[...document.querySelectorAll('.section-rail a[data-section]')];
+  const sections=links.map(a=>document.getElementById(a.dataset.section)).filter(Boolean);
+  if(!links.length||!sections.length)return;
+  const setActive=id=>links.forEach(a=>a.classList.toggle('active',a.dataset.section===id));
+  const io=new IntersectionObserver(entries=>{
+    const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+    if(visible)setActive(visible.target.id);
+  },{rootMargin:'-38% 0px -48% 0px',threshold:[0,.15,.4,.7]});
+  sections.forEach(s=>io.observe(s));
+  setActive(sections[0].id);
+})();
+</script>
+</body>
 </html>
